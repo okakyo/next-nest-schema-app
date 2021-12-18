@@ -18,7 +18,7 @@ import { join } from 'path';
       entities: [join(__dirname + '/**/*.entity{.ts,.js}')],
       synchronize: false,
       cli: {
-        migrationsDir: join(__dirname + 'migration'),
+        migrationsDir: join(__dirname + '../migrations'),
       },
     }),
   ],

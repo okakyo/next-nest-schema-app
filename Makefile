@@ -1,4 +1,5 @@
 up:
+	docker compose down
 	docker compose up
 
 build-up:
@@ -16,6 +17,14 @@ stop:
 dev-clean:
 	docker compose rm postgresqlvolume
 
-dev-restart:
-	make dev-clean && make down && make up
+dev-clean-restart:
+	make dev-clean
+	make up
+
+migrate:
+	docker compose exec api yarn migration:run
+
+migrate-down:
+	docker composee exec api yarn migration:revert
+
 

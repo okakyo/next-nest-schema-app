@@ -23,6 +23,7 @@ services:
       target: "base"
     volumes:
       - ./api/src:/apps/base/src
+      - ./api/migrations:/apps/base/migrations
     environment:
       NOD_ENV: development
       POSTGRES_USER: user
