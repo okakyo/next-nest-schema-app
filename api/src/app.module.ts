@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app/main/app.controller';
-import { AppService } from './app/main/app.service';
-import { WorkModule } from './work/main/work.module';
+import { AppController } from './controllers/app.controller';
+import { AppService } from './services/app.service';
+import { WorkModule } from './modules/work.module';
 import { join } from 'path';
 
 @Module({
@@ -17,6 +17,9 @@ import { join } from 'path';
       database: process.env.POSTGRES_DB,
       entities: [join(__dirname + '/**/*.entity{.ts,.js}')],
       synchronize: false,
+      cli: {
+        migrationsDir: join(__dirname + 'migration'),
+      },
     }),
   ],
   controllers: [AppController],

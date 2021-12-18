@@ -7,9 +7,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateWorkDTO, UpdateWorkDTO } from './work.dto';
-import { WorkEntity } from './work.entity';
-import { WorkService } from './work.service';
+import { CreateWorkDTO, UpdateWorkDTO } from '../dto/work.dto';
+import { WorkEntity } from '../entities/work.entity';
+import { WorkService } from '../services/work.service';
 @Controller('work')
 export class WorkController {
   constructor(private readonly workService: WorkService) {}
