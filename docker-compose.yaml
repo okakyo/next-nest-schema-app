@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  front:
+    image: "okakyo/civic-front"
+    container_name: "civic_front"
+    build:
+      context: "./front"
+      target: "base"
+    volumes:
+      - ./front/src:/apps/base/src
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - api
+    ports:
+      - 10000:3000
+    command: yarn dev
+  api:
+    image: "okakyo/civic-api"
+    container_name: "civic_api"
+    build:
+      context: "./api"
+      target: "base"
+    volumes:
+      - ./api/src:/apps/base/src
+    environment:
+      NOD_ENV: development
+      POSTGRES_USER: user
+      POSTGRES_DB: dev
+      POSTGRES_PASSWORD: password
+    depends_on:
+      - db
+    ports:
+      -  11000:3000
+    command: yarn start:dev
+  db:
+    image: "postgres:14"
+    container_name: "civic_db"
+    restart: "always"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_DB: dev
+      POSTGRES_PASSWORD: password
+    volumes:
+      - "./dev/db/initdb/:/docker-entrypoint-initdb.d/"
+      - "postgresqlvolume:/var/lib/postgresql/data"
+volumes:
+  postgresqlvolume:
