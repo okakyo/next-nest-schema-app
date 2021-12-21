@@ -3,6 +3,7 @@ services:
   front:
     image: "okakyo/civic-front"
     container_name: "civic_front"
+    restart: "always"
     build:
       context: "./front"
       target: "base"
@@ -18,6 +19,7 @@ services:
   api:
     image: "okakyo/civic-api"
     container_name: "civic_api"
+    restart: "always"
     build:
       context: "./api"
       target: "base"
