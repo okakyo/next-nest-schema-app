@@ -27,4 +27,8 @@ migrate:
 migrate-down:
 	docker composee exec api yarn migration:revert
 
+db-seed:
+	docker compose exec api yarn seed:run
 
+db-clean:
+	docker compose exec api yarn schema:drop
