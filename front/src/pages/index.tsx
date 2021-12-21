@@ -1,17 +1,19 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import {Box} from "@chakra-ui/react";
 import {TodoCard} from '../components/general/cards/TodoCard';
+import useSWR from 'swr';
 
 const Home: NextPage = () => {
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const {data,error} = useSWR('http://localhost:11000/work',fetcher)
+  if (error) return <>failed to load...</>
+  if (!data) return <>Loading...</>
   return(
-    <Box p="3">
-      {[1,2,3,4,5].map((item)=>{
+    <Box py="3">
+      {data.map((item:any)=>{
           return (
             <>
-              <TodoCard key={item}/>
+              <TodoCard key={item.title} id={item.id} title ={item.title} />
             </>
           )
         })}
@@ -20,3 +22,4 @@ const Home: NextPage = () => {
 }
 
 export default Home
+

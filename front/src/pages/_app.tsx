@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider>
       <Box bgColor="gray.200" minH="100vh">
         <TheHeader />
-        <Container  my="3" minH="50vh" maxW="container.lg" bgColor="gray.100" shadow="sm">
+        <Container minH="50vh" maxW="container.lg" bgColor="gray.100" shadow="sm">
           <Component  {...pageProps} />
         </Container>
       </Box>
