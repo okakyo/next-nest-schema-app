@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateWorkDTO, UpdateWorkDTO } from '../dto/work.dto';
-import { WorkEntity } from '../entities/work.entity';
+import { WorkEntity } from '../db/works/work.entity';
 
 @Injectable()
 export class WorkService {
@@ -10,14 +10,14 @@ export class WorkService {
     @InjectRepository(WorkEntity)
     private workRepository: Repository<WorkEntity>,
   ) {}
-  findAll() {
+  findAll(): Promise<WorkEntity[]> {
     return this.workRepository.find();
   }
-  findOne(id: number) {
+  findOne(id: number): Promise<WorkEntity> {
     return this.workRepository.findOne(id);
   }
 
-  create(work: CreateWorkDTO) {
+  create(work: CreateWorkDTO): WorkEntity {
     return this.workRepository.create(work);
   }
 

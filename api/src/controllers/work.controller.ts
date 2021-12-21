@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateWorkDTO, UpdateWorkDTO } from '../dto/work.dto';
-import { WorkEntity } from '../entities/work.entity';
+import { WorkEntity } from '../db/works/work.entity';
 import { WorkService } from '../services/work.service';
 @Controller('work')
 export class WorkController {
