@@ -11,11 +11,7 @@ const Home: NextPage = () => {
   return(
     <Box py="3">
       {data.map((item:any)=>{
-          return (
-            <>
-              <TodoCard key={item.title} id={item.id} title ={item.title} />
-            </>
-          )
+          return <TodoCard key={item.title} id={item.id} title ={item.title} />
         })}
     </Box>
   )
