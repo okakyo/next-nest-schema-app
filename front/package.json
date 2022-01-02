@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen":"yarn openapi-generator-cli generate -i http://localhost:11000/api-json -g typescript-axios -o components/generated/main-api "
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
@@ -20,6 +21,7 @@
     "swr": "^1.1.1"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.23",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "eslint": "8.4.1",
