@@ -5,17 +5,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   // TODO: 認証の仕組みをここに実装する
   return (
     <ChakraProvider>
-      <Box bgColor="gray.200" minH="100vh" pb={3}>
+      <Box bgColor="gray.50" minH="100vh" pb={3}>
         <TheHeader />
-        <Container
-          minH="50vh"
-          maxW="container.lg"
-          bgColor="white"
-          my={5}
-          py={3}
-          px={8}
-          shadow="sm"
-        >
+        <Container minH="50vh" maxW="container.lg" my={5} py={3} px={8}>
           <Component {...pageProps} />
         </Container>
       </Box>

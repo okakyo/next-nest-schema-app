@@ -1,9 +1,7 @@
-export const ProfileForm = () =>{
-    return (
+export const ProfileForm = () => {
+  return (
     <>
-      <div>
-        sample
-      </div>
+      <div>sample</div>
     </>
-    )
-  }
+  );
+};

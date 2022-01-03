@@ -1,8 +1,7 @@
-
-export const WorkForm = ()=>{
+export const WorkForm = () => {
   return (
-  <>
-    <div>sample</div>
-  </>
-  )
-}
+    <>
+      <div>sample</div>
+    </>
+  );
+};
