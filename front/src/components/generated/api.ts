@@ -24,6 +24,31 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface UpdateWorkDTO
+ */
+export interface UpdateWorkDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateWorkDTO
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateWorkDTO
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateWorkDTO
+     */
+    'isShow'?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface WorkEntity
  */
 export interface WorkEntity {
@@ -76,7 +101,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetHello: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getHello: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -100,12 +125,77 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+    }
+};
+
+/**
+ * DefaultApi - functional programming interface
+ * @export
+ */
+export const DefaultApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
+    return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerCreateWork: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        async getHello(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHello(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DefaultApi - factory interface
+ * @export
+ */
+export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DefaultApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getHello(options?: any): AxiosPromise<void> {
+            return localVarFp.getHello(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DefaultApi - object-oriented interface
+ * @export
+ * @class DefaultApi
+ * @extends {BaseAPI}
+ */
+export class DefaultApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getHello(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getHello(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * WorkApi - axios parameter creator
+ * @export
+ */
+export const WorkApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWork: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/work`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -135,9 +225,9 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerDeleteWork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteWork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('workControllerDeleteWork', 'id', id)
+            assertParamExists('deleteWork', 'id', id)
             const localVarPath = `/work/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -168,9 +258,9 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerGetWork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getWork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('workControllerGetWork', 'id', id)
+            assertParamExists('getWork', 'id', id)
             const localVarPath = `/work/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -200,7 +290,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerGetWorks: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getWorks: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/work`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -227,12 +317,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {number} id 
+         * @param {UpdateWorkDTO} updateWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerUpdateWork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateWork: async (id: number, updateWorkDTO: UpdateWorkDTO, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('workControllerUpdateWork', 'id', id)
+            assertParamExists('updateWork', 'id', id)
+            // verify required parameter 'updateWorkDTO' is not null or undefined
+            assertParamExists('updateWork', 'updateWorkDTO', updateWorkDTO)
             const localVarPath = `/work/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -242,15 +335,18 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateWorkDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -261,28 +357,19 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * DefaultApi - functional programming interface
+ * WorkApi - functional programming interface
  * @export
  */
-export const DefaultApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
+export const WorkApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WorkApiAxiosParamCreator(configuration)
     return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async appControllerGetHello(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.appControllerGetHello(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async workControllerCreateWork(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workControllerCreateWork(options);
+        async createWork(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWork(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -291,8 +378,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workControllerDeleteWork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workControllerDeleteWork(id, options);
+        async deleteWork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWork(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -301,8 +388,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workControllerGetWork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workControllerGetWork(id, options);
+        async getWork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWork(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -310,45 +397,38 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workControllerGetWorks(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workControllerGetWorks(options);
+        async getWorks(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<WorkEntity>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWorks(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {number} id 
+         * @param {UpdateWorkDTO} updateWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workControllerUpdateWork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workControllerUpdateWork(id, options);
+        async updateWork(id: number, updateWorkDTO: UpdateWorkDTO, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWork(id, updateWorkDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * DefaultApi - factory interface
+ * WorkApi - factory interface
  * @export
  */
-export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = DefaultApiFp(configuration)
+export const WorkApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WorkApiFp(configuration)
     return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetHello(options?: any): AxiosPromise<void> {
-            return localVarFp.appControllerGetHello(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        workControllerCreateWork(options?: any): AxiosPromise<WorkEntity> {
-            return localVarFp.workControllerCreateWork(options).then((request) => request(axios, basePath));
+        createWork(options?: any): AxiosPromise<WorkEntity> {
+            return localVarFp.createWork(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -356,8 +436,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerDeleteWork(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.workControllerDeleteWork(id, options).then((request) => request(axios, basePath));
+        deleteWork(id: number, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteWork(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -365,54 +445,45 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerGetWork(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.workControllerGetWork(id, options).then((request) => request(axios, basePath));
+        getWork(id: number, options?: any): AxiosPromise<WorkEntity> {
+            return localVarFp.getWork(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerGetWorks(options?: any): AxiosPromise<void> {
-            return localVarFp.workControllerGetWorks(options).then((request) => request(axios, basePath));
+        getWorks(options?: any): AxiosPromise<Array<WorkEntity>> {
+            return localVarFp.getWorks(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {number} id 
+         * @param {UpdateWorkDTO} updateWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workControllerUpdateWork(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.workControllerUpdateWork(id, options).then((request) => request(axios, basePath));
+        updateWork(id: number, updateWorkDTO: UpdateWorkDTO, options?: any): AxiosPromise<WorkEntity> {
+            return localVarFp.updateWork(id, updateWorkDTO, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * DefaultApi - object-oriented interface
+ * WorkApi - object-oriented interface
  * @export
- * @class DefaultApi
+ * @class WorkApi
  * @extends {BaseAPI}
  */
-export class DefaultApi extends BaseAPI {
+export class WorkApi extends BaseAPI {
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof WorkApi
      */
-    public appControllerGetHello(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).appControllerGetHello(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public workControllerCreateWork(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).workControllerCreateWork(options).then((request) => request(this.axios, this.basePath));
+    public createWork(options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).createWork(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -420,10 +491,10 @@ export class DefaultApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof WorkApi
      */
-    public workControllerDeleteWork(id: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).workControllerDeleteWork(id, options).then((request) => request(this.axios, this.basePath));
+    public deleteWork(id: number, options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).deleteWork(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -431,31 +502,32 @@ export class DefaultApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof WorkApi
      */
-    public workControllerGetWork(id: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).workControllerGetWork(id, options).then((request) => request(this.axios, this.basePath));
+    public getWork(id: number, options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).getWork(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof WorkApi
      */
-    public workControllerGetWorks(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).workControllerGetWorks(options).then((request) => request(this.axios, this.basePath));
+    public getWorks(options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).getWorks(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {number} id 
+     * @param {UpdateWorkDTO} updateWorkDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof WorkApi
      */
-    public workControllerUpdateWork(id: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).workControllerUpdateWork(id, options).then((request) => request(this.axios, this.basePath));
+    public updateWork(id: number, updateWorkDTO: UpdateWorkDTO, options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).updateWork(id, updateWorkDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -1,11 +1,11 @@
-import {ApiProperty} from "@nestjs/swagger";
-import {Length,MaxLength,IsBoolean,IsNotEmpty} from "class-validator";
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Length, MaxLength, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class CreateWorkDTO {
   @ApiProperty({
-    type: String
+    type: String,
   })
-  @Length(1,300)
+  @Length(1, 300)
   @IsNotEmpty()
   title: string;
 
@@ -14,7 +14,8 @@ export class CreateWorkDTO {
   description?: string;
 
   @ApiProperty()
+  @IsBoolean()
   isShow?: boolean;
 }
 
-export type UpdateWorkDTO = Partial<CreateWorkDTO>;
+export class UpdateWorkDTO extends PartialType(CreateWorkDTO) {}
