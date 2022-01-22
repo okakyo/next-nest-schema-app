@@ -29,7 +29,7 @@ export default function CardDetail() {
     new WorkApi(MainAPIConfiguration).getWork(taskId).then((res) => {
       setWork(res.data);
     });
-  }, [router, taskId]);
+  }, [router, taskId, work]);
   const {
     register,
     handleSubmit,
