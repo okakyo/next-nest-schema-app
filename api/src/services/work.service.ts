@@ -11,14 +11,14 @@ export class WorkService {
     private workRepository: Repository<WorkEntity>,
   ) {}
   findAll(): Promise<WorkEntity[]> {
-    return this.workRepository.find();
+    return this.workRepository.find({ order: { id: 'ASC' } });
   }
   findOne(id: number): Promise<WorkEntity> {
     return this.workRepository.findOne(id);
   }
 
-  create(work: CreateWorkDTO): WorkEntity {
-    return this.workRepository.create(work);
+  create(work: CreateWorkDTO): Promise<WorkEntity> {
+    return this.workRepository.save(work);
   }
 
   update(id: number, work: UpdateWorkDTO) {
@@ -26,6 +26,6 @@ export class WorkService {
   }
 
   delete(id: number) {
-    return this.workRepository.delete(id);
+    return this.workRepository.delete({ id: id });
   }
 }

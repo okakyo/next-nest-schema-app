@@ -45,6 +45,8 @@ export class WorkController {
   }
 
   @Delete('/:id')
+  @ApiResponse({ status: 200, description: 'Delete Success', type: null })
+  @ApiResponse({ status: 404, description: 'Not Founded' })
   async deleteWork(@Param('id') id: number) {
     return this.workService.delete(id);
   }

@@ -24,6 +24,31 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface CreateWorkDTO
+ */
+export interface CreateWorkDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateWorkDTO
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateWorkDTO
+     */
+    'description': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateWorkDTO
+     */
+    'isShow': boolean;
+}
+/**
+ * 
+ * @export
  * @interface UpdateWorkDTO
  */
 export interface UpdateWorkDTO {
@@ -192,10 +217,13 @@ export const WorkApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * 
+         * @param {CreateWorkDTO} createWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWork: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createWork: async (createWorkDTO: CreateWorkDTO, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createWorkDTO' is not null or undefined
+            assertParamExists('createWork', 'createWorkDTO', createWorkDTO)
             const localVarPath = `/work`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -210,9 +238,12 @@ export const WorkApiAxiosParamCreator = function (configuration?: Configuration)
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createWorkDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -365,11 +396,12 @@ export const WorkApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {CreateWorkDTO} createWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createWork(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createWork(options);
+        async createWork(createWorkDTO: CreateWorkDTO, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWork(createWorkDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -424,11 +456,12 @@ export const WorkApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * 
+         * @param {CreateWorkDTO} createWorkDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWork(options?: any): AxiosPromise<WorkEntity> {
-            return localVarFp.createWork(options).then((request) => request(axios, basePath));
+        createWork(createWorkDTO: CreateWorkDTO, options?: any): AxiosPromise<WorkEntity> {
+            return localVarFp.createWork(createWorkDTO, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -478,12 +511,13 @@ export const WorkApiFactory = function (configuration?: Configuration, basePath?
 export class WorkApi extends BaseAPI {
     /**
      * 
+     * @param {CreateWorkDTO} createWorkDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkApi
      */
-    public createWork(options?: AxiosRequestConfig) {
-        return WorkApiFp(this.configuration).createWork(options).then((request) => request(this.axios, this.basePath));
+    public createWork(createWorkDTO: CreateWorkDTO, options?: AxiosRequestConfig) {
+        return WorkApiFp(this.configuration).createWork(createWorkDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
