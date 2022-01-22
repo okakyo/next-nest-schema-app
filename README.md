@@ -87,4 +87,3 @@ cd front; yarn codegen
 
 ## Author
 - Oka Kyohei(@okakyo)
-

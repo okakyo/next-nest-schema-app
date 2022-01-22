@@ -4,7 +4,7 @@ import { TheHeader } from '../components/general/TheHeader';
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // TODO: 認証の仕組みをここに実装する
+ 
   return (
     <>
       <Head>

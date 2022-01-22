@@ -7,25 +7,11 @@ export const TheHeader = () => {
       <Box>
         <Heading size="md" textAlign="center" cursor="pointer">
           <Link href="/" passHref>
-            Civic
+            Next.js x Nest.js
           </Link>
         </Heading>
       </Box>
       <Spacer />
-      <Box>
-        <HStack>
-          <Heading size="sm" textAlign="center" cursor="pointer" px={5} py={3}>
-            <Link href="/" passHref>
-              新規登録
-            </Link>
-          </Heading>
-          <Heading size="sm" textAlign="center" cursor="pointer" px={5} py={3}>
-            <Link href="/" passHref>
-              ログイン
-            </Link>
-          </Heading>
-        </HStack>
-      </Box>
     </Flex>
   );
 };
